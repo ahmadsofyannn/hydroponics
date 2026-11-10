@@ -21,7 +21,7 @@ export default function Navbar({ cartCount, onOpenCart, searchQuery, setSearchQu
               <Leaf className="w-5 h-5 text-emerald-600 fill-emerald-600/20" />
             </span>
             <span className="tracking-tight">
-              Hydro<span className="text-emerald-600">Fresh</span>
+              Hydro<span className="text-emerald-600">farm</span>
             </span>
           </Link>
 
@@ -30,7 +30,7 @@ export default function Navbar({ cartCount, onOpenCart, searchQuery, setSearchQu
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Cari sayur segar (misal: Pakcoy, Selada)..."
+              placeholder="Cari sayur..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 text-sm bg-slate-50 border border-slate-200/80 rounded-full focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-500/10 transition"
@@ -46,7 +46,7 @@ export default function Navbar({ cartCount, onOpenCart, searchQuery, setSearchQu
             >
               <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
               {cartCount > 0 && (
-                <span className="absolute top-1 right-1 bg-emerald-600 text-white text-[10px] font-bold min-w-20px h-20px px-1 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                <span className="absolute top-1 right-1 bg-emerald-600 text-white text-[10px] font-bold min-w-[20px] h-[20px] px-1 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
                   {cartCount}
                 </span>
               )}
@@ -68,7 +68,7 @@ export default function Navbar({ cartCount, onOpenCart, searchQuery, setSearchQu
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Cari sayur segar..."
+              placeholder="Cari sayur..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 text-sm bg-slate-50 border border-slate-200/80 rounded-full focus:outline-none focus:border-emerald-500 focus:bg-white transition"

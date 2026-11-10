@@ -77,7 +77,7 @@ export default function AdminLogin() {
             <ShieldCheck className="w-6 h-6 stroke-[2.5]" />
           </div>
           <h2 className="font-black text-2xl text-slate-900 tracking-tight">Login Admin</h2>
-          <p className="text-xs font-bold text-slate-600 mt-1">Portal Manajemen HydroFresh</p>
+          <p className="text-xs font-bold text-slate-600 mt-1">Portal Manajemen HydroFarm</p>
         </header>
 
         <form onSubmit={handleLogin} className="space-y-4">

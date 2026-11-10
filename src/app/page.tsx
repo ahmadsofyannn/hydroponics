@@ -14,8 +14,6 @@ import {
   User,
   MapPin,
   MessageCircle,
-  Phone,
-  Mail,
   Trash2,
   Leaf,
 } from "lucide-react";
@@ -32,8 +30,6 @@ export default function Home() {
   const [cartName, setCartName] = useState("");
   const [cartAddress, setCartAddress] = useState("");
   const [cartWhatsapp, setCartWhatsapp] = useState("");
-  const [cartPhone, setCartPhone] = useState("");
-  const [cartEmail, setCartEmail] = useState("");
   const [cartSuccess, setCartSuccess] = useState(false);
   const [isSubmittingCart, setIsSubmittingCart] = useState(false);
 
@@ -70,7 +66,6 @@ export default function Home() {
     });
   };
 
-  // Fungsi Ubah Kuantitas & Hapus Item di Keranjang
   const handleUpdateCartQuantity = (productId: number, delta: number) => {
     setCart(
       (prev) =>
@@ -131,12 +126,6 @@ export default function Home() {
         : cleanWaDigits;
       formattedContact = `WA: https://wa.me/${finalWa}`;
     }
-    if (cartPhone.trim()) {
-      formattedContact += ` | Telp: ${cartPhone.trim()}`;
-    }
-    if (cartEmail.trim()) {
-      formattedContact += ` | Email: ${cartEmail.trim()}`;
-    }
 
     const orderPayload = {
       customer_name: cartName,
@@ -174,8 +163,6 @@ export default function Home() {
       setCartName("");
       setCartAddress("");
       setCartWhatsapp("");
-      setCartPhone("");
-      setCartEmail("");
       refreshProducts();
     }, 2000);
   };
@@ -190,17 +177,12 @@ export default function Home() {
   );
 
   const cleanWa = cartWhatsapp.replace(/\D/g, "");
-  const cleanPhone = cartPhone.replace(/\D/g, "");
   const isCartFormValid =
     cartName.trim().length > 0 &&
     cartAddress.trim().length > 0 &&
-    ((cartWhatsapp.trim() !== "" &&
-      cleanWa.length >= 10 &&
-      cleanWa.length <= 13) ||
-      (cartPhone.trim() !== "" &&
-        cleanPhone.length >= 10 &&
-        cleanPhone.length <= 13) ||
-      (cartEmail.includes("@") && cartEmail.trim().length > 3));
+    cartWhatsapp.trim() !== "" &&
+    cleanWa.length >= 10 &&
+    cleanWa.length <= 13;
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between">
@@ -212,27 +194,33 @@ export default function Home() {
           setSearchQuery={setSearchQuery}
         />
 
-        {/* Hero Section */}
-        <header className="bg-linear-to-b from-emerald-900 via-emerald-800 to-emerald-950 text-white py-12 sm:py-16 px-4 text-center relative overflow-hidden">
-          <div className="max-w-3xl mx-auto relative z-10">
-            <span className="inline-flex items-center gap-1.5 bg-emerald-700/60 backdrop-blur-md text-emerald-200 text-xs font-semibold px-3.5 py-1.5 rounded-full border border-emerald-500/30 mb-3">
-              <span>🥬</span> Fresh & Local Hydroponic Garden
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mt-2 mb-3">
-              Sayuran Segar Bebas Pestisida
-            </h1>
-            <p className="text-emerald-100/90 text-sm sm:text-base max-w-xl mx-auto font-light">
-              Dipanen secara higienis dari kebun hidroponik modern untuk menjaga
-              kesegaran dan kebaikan nutrisi keluarga Anda.
-            </p>
-          </div>
-        </header>
+       {/* Hero Section dengan Background Foto Lokal */}
+{/* Hero Section Tajam Tanpa Blur */}
+<header className="relative w-full h-80 sm:h-96 flex items-center justify-center text-center overflow-hidden shadow-md">
+  {/* Gambar Background */}
+  {/* eslint-disable-next-line @next/next/no-img-element */}
+  <img
+    src="/images/selada.png"
+    alt="Kebun Selada Hydrofarm"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
 
-        {/* Katalog Produk */}
+  {/* Overlay Gelap Transparan Tanpa Blur */}
+  <div className="absolute inset-0 bg-black/40" />
+
+  {/* Teks Tagline */}
+  <div className="relative z-10 max-w-3xl px-4">
+    <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg">
+      Selada Segar, Renyah, & Langsung Panen dari Kebun Lokal
+    </h1>
+  </div>
+</header>
+
+        {/* Daftar Harga Sayuran */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex items-center justify-between mb-8 pb-3 border-b border-slate-200">
             <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              <span>🌱</span> Katalog Sayuran Segar
+              <span>🌱</span> Daftar Harga Sayuran
             </h2>
             <span className="text-xs text-slate-500 font-medium">
               Menampilkan {filteredProducts.length} produk
@@ -259,61 +247,53 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Kolom Informasi Kontak & Alamat di Bawah */}
+      {/* Footer Sesuai Data Mitra Baru */}
       <footer className="bg-slate-900 text-slate-200 pt-12 pb-8 border-t border-slate-800 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2.5 font-bold text-xl text-white mb-3">
               <span className="p-2 bg-emerald-800/80 text-emerald-300 rounded-xl flex items-center justify-center">
                 <Leaf className="w-5 h-5" />
               </span>
               <span>
-                Hydro<span className="text-emerald-400">Fresh</span>
+                Hydro<span className="text-emerald-400">farm</span>
               </span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Penyedia sayuran hidroponik segar berkualitas tinggi, higienis,
-              dan diantar langsung dari kebun lokal ke rumah Anda.
-            </p>
           </div>
 
-          <div>
-            <h3 className="font-extrabold text-white text-sm uppercase tracking-wider mb-3">
-              Kontak Kami
-            </h3>
-            <ul className="space-y-2 text-xs text-slate-300">
-              <li className="flex items-center gap-2">
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-extrabold text-white text-sm uppercase tracking-wider mb-3">
+                Kontak Kami
+              </h3>
+              <a
+                href="https://wa.me/6282139423518"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs font-bold text-emerald-300 bg-emerald-950 hover:bg-emerald-900 px-4 py-2.5 rounded-xl border border-emerald-800 transition shadow-sm"
+              >
                 <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>WhatsApp: 0812-3456-7890</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Email: info@hydrofresh.com</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Telepon: (021) 555-8899</span>
-              </li>
-            </ul>
-          </div>
+                <span>WhatsApp: +62 821-3942-3518</span>
+              </a>
+            </div>
 
-          <div>
-            <h3 className="font-extrabold text-white text-sm uppercase tracking-wider mb-3">
-              Alamat Kebun
-            </h3>
-            <div className="flex items-start gap-2 text-xs text-slate-300">
-              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <p>
-                Jl. Kebun Hidroponik No. 45, RT 03/RW 05, Kel. Green Garden,
-                Kecamatan Flora, Jakarta Selatan 12550
-              </p>
+            <div>
+              <h3 className="font-extrabold text-white text-sm uppercase tracking-wider mb-2">
+                Alamat Kebun
+              </h3>
+              <div className="flex items-start gap-2 text-xs text-slate-300">
+                <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <p>
+                  Perumahan Queen Gardenia, Blok Aster No.G-11, Karanganyar, Tegal
+                  Besar, Kec. Kaliwates, Kabupaten Jember, Jawa Timur 68132
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
-          &copy; {new Date().getFullYear()} HydroFresh Hidroponik. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} Hydrofarm. All rights reserved.
         </div>
       </footer>
 
@@ -368,7 +348,6 @@ export default function Home() {
                   onSubmit={handleCartCheckoutSubmit}
                   className="py-4 space-y-4"
                 >
-                  {/* Nama Lengkap */}
                   <div>
                     <label className="block text-xs font-bold text-slate-900 mb-1">
                       Nama Lengkap <span className="text-red-600">*</span>
@@ -386,7 +365,6 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Alamat Pengiriman */}
                   <div>
                     <label className="block text-xs font-bold text-slate-900 mb-1">
                       Alamat Lengkap Pengiriman{" "}
@@ -405,13 +383,9 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* No WhatsApp */}
                   <div>
                     <label className="block text-xs font-bold text-slate-900 mb-1">
-                      No. WhatsApp Aktif{" "}
-                      <span className="text-red-600">
-                        (Wajib isi salah satu kontak)
-                      </span>
+                      No. WhatsApp Aktif <span className="text-red-600">*</span>
                     </label>
                     <div className="flex gap-2">
                       <div className="flex items-center gap-1 bg-slate-100 border border-slate-300 px-3 py-2.5 rounded-xl text-xs font-extrabold text-slate-800">
@@ -422,48 +396,13 @@ export default function Home() {
                         type="tel"
                         value={cartWhatsapp}
                         onChange={(e) => setCartWhatsapp(e.target.value)}
-                        placeholder="81234567890"
+                        placeholder="82139423518"
                         className="w-full px-3.5 py-2.5 text-sm font-semibold text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl focus:outline-none focus:border-emerald-700 transition"
-                      />
-                    </div>
-                  </div>
-
-                  {/* No Telepon */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-900 mb-1">
-                      No. Telepon (Opsional)
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <input
-                        type="tel"
-                        value={cartPhone}
-                        onChange={(e) => setCartPhone(e.target.value)}
-                        placeholder="021xxxxxx"
-                        className="w-full pl-10 pr-3.5 py-2.5 text-sm font-semibold text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl focus:outline-none focus:border-emerald-700 transition"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-900 mb-1">
-                      Alamat Email (Opsional)
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                      <input
-                        type="email"
-                        value={cartEmail}
-                        onChange={(e) => setCartEmail(e.target.value)}
-                        placeholder="contoh@email.com"
-                        className="w-full pl-10 pr-3.5 py-2.5 text-sm font-semibold text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl focus:outline-none focus:border-emerald-700 transition"
                       />
                     </div>
                   </div>
                 </form>
               ) : (
-                /* Daftar Belanjaan dengan Tombol - + dan Hapus */
                 <div className="divide-y divide-slate-200 overflow-y-auto max-h-[50vh] my-4">
                   {cart.length === 0 ? (
                     <p className="text-center text-slate-500 font-medium py-12 text-sm">
@@ -491,7 +430,6 @@ export default function Home() {
                           </button>
                         </div>
                         <div className="flex justify-between items-center mt-1">
-                          {/* Kontrol Tombol - + */}
                           <div className="flex items-center border border-slate-300 rounded-lg bg-slate-50 px-1">
                             <button
                               onClick={() =>

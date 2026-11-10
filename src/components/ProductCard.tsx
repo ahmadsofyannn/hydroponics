@@ -55,7 +55,7 @@ export default function ProductCard({ product, onSelect }: ProductCardProps) {
             <span className="text-emerald-700 font-black text-lg">
               Rp {product.price.toLocaleString('id-ID')}
             </span>
-            <span className="text-xs text-slate-400 font-medium">/ {product.unit}</span>
+            {/* <span className="text-xs text-slate-400 font-medium">/ {product.unit}</span> */}
           </div>
         </div>
       </div>
